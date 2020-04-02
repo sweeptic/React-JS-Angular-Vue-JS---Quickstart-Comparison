@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.core.min.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.core.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
     <title>Document</title>
 </head>
@@ -14,12 +14,109 @@
 <body>
 
     <div id="app">
-        <input type="text">
-        <button>Add todo</button>
-        <ul></ul>
+        <input type="text" v-model='userInput'>
+        <button v-on:click='addTodo'>Add todo</button>
+        <ul>
+            <li v-for='todo in todos' v-on:click='removeTodo(todo)'> {{todo.value}} </li>
+        </ul>
     </div>
 
     <script>
+        new Vue({
+            el: '#app',
+            data: {
+                todos: [],
+                userInput: ''
+            },
+            methods: {
+                addTodo: function() {
+                    if (this.userInput.trim() == '') return;
+                    var newTodo = {
+                        id: Math.random(),
+                        value: this.userInput
+                    };
+                    this.todos.push(newTodo);
+                    console.table(this.todos);
+                },
+
+                removeTodo: function(todo) {
+                    for (let i = 0; i < this.todos.length; i++) {
+                        if (this.todos[i].id == todo.id) {
+                            this.todos.splice(i, 1);
+                            break;
+                        }
+                    }
+                    console.table(this.todos);
+                }
+            }
+        })
+
+
+        // // jquery
+        // // var inputEl = document.querySelector('input');
+        // // var buttonEl = document.querySelector('button');
+        // // var ulEl = document.querySelector('ul');
+
+        // var inputEl = $('input');
+        // var buttonEl = $('button');
+        // var ulEl = $('ul');
+        // var todos = [];
+
+        // // jquery
+        // // buttonEl.addEventListener('click', addTodo);
+        // buttonEl.click(addTodo);
+
+        // function addTodo() {
+
+        //     // jquery
+        //     // var inputVal = inputEl.value;
+        //     var inputVal = inputEl.val();
+
+        //     if (inputVal.trim() == '') return;
+
+        //     var inputObj = {
+        //         id: Math.random(),
+        //         data: inputVal
+        //     }
+        //     todos.push(inputObj);
+
+        //     // jquery
+        //     // var valElement = document.createElement('li');
+        //     $('<li>' + inputVal + '</li>')
+        //         .click(removeTodo)
+        //         .appendTo(ulEl)
+        //         .attr('dataset-id', inputObj.id)
+
+
+        //     // valElement.textContent = inputVal;
+        //     // valElement.addEventListener('click', removeTodo)
+        //     // valElement.dataset.id = inputObj.id;
+        //     // ulEl.appendChild(valElement);
+
+
+        //     console.table(todos);
+        // }
+
+        // function removeTodo(event) {
+
+        //     // jquery
+        //     // var actualEl = event.target;
+        //     var actualEl = $(this);
+        //     // jquery
+        //     // var actualVal = actualEl.dataset.id;
+        //     var actualVal = actualEl.attr('dataset-id');
+
+        //     for (let i = 0; i < todos.length; i++) {
+        //         if (todos[i].id == actualVal) {
+        //             todos.splice(i, 1);
+        //         }
+        //     }
+        //     // jquery
+        //     // actualEl.parentNode.removeChild(actualEl);
+        //     actualEl.remove();
+        //     console.table(todos);
+
+        // }
     </script>
 
 </body>
