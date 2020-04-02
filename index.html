@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script> -->
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.core.min.js"></script>
+
+    <!-- 
+    <div id="app">
+        <input type="text" name="" id="">
+        <button >Add todo</button>
+
+        <ul></ul>
+    </div> -->
+
+    <div id="app">
+        <input type="text" v-model="userInput" name="" id="">
+        <button v-on:click="addTodo">Add todo</button>
+
+        <ul>
+            <li v-for="todo in todos" v-on:click="removeTodo(todo)"> {{todo.value}} </li>
+        </ul>
+    </div>
+
+
+
+
+
+    <script>
+        // // standard JS
+        // var inputEl = document.querySelector('input');
+        // var buttonEl = document.querySelector('button');
+        // var ulEl = document.querySelector('ul');
+
+        // var todos = [];
+
+        // buttonEl.addEventListener('click', addTodo)
+
+        // function addTodo() {
+        //     var userInput = inputEl.value;
+        //     if (userInput.trim() == '') {
+        //         return;
+        //     }
+
+        //     var newTodo = { id: Math.random(), value: userInput };
+
+        //     todos.push(newTodo)
+        //     var todoLi = document.createElement('Li');
+        //     todoLi.textContent = userInput;
+        //     todoLi.addEventListener('click', removeTodo);
+        //     todoLi.dataset.id = newTodo.id;
+        //     ulEl.appendChild(todoLi);
+        //     console.log(todos);
+        // }
+
+        // function removeTodo(event) {
+        //     var clickedLi = event.target;
+        //     var itemId = clickedLi.dataset.id;
+
+        //     for (let i = 0; i < todos.length; i++) {
+        //         if (todos[i].id == itemId) {
+        //             todos.splice(i, 1);
+        //             break;
+        //         }
+        //     }
+        //     clickedLi.parentNode.removeChild(clickedLi);
+        //     console.log(todos);
+        // }
+
+
+
+
+        // jquery JS
+        // var inputEl = document.querySelector('input');
+        // var buttonEl = document.querySelector('button');
+        // var ulEl = document.querySelector('ul');
+
+        // var inputEl = $('input');
+        // var buttonEl = $('button');
+        // var ulEl = $('ul');
+
+        // var todos = [];
+
+        // // buttonEl.addEventListener('click', addTodo);
+        // buttonEl.click(addTodo);
+
+        // function addTodo() {
+        //     // var userInput = inputEl.value;
+        //     var userInput = inputEl.val();
+        //     if (userInput.trim() == '') {
+        //         return;
+        //     }
+
+        //     // var newTodo = { id: Math.random(), value: userInput };
+        //     var newTodo = { id: _.uniqueId(), value: userInput };
+
+        //     todos.push(newTodo);
+        //     // var todoLi = document.createElement('Li');
+        //     // todoLi.textContent = userInput;
+        //     // ulEl.appendChild(todoLi);
+        //     $('<li>' + userInput + '</li>')
+        //         .appendTo(ulEl)
+        //         .attr('dataset-id', newTodo.id)
+        //         .click(removeTodo);
+        //     // todoLi.dataset.id = newTodo.id;
+        //     // todoLi.addEventListener('click', removeTodo);
+        //     console.log(todos);
+        // }
+
+        // function removeTodo(event) {
+        //     // var clickedLi = event.target;
+        //     var clickedLi = $(this);
+        //     // var itemId = clickedLi.dataset.id;
+        //     var itemId = clickedLi.attr('dataset-id');
+
+        //     for (let i = 0; i < todos.length; i++) {
+        //         if (todos[i].id == itemId) {
+        //             todos.splice(i, 1);
+        //             break;
+        //         }
+        //     }
+        //     // clickedLi.parentNode.removeChild(clickedLi);
+        //     clickedLi.remove();
+        //     console.log(todos);
+        // }
+
+
+
+        // jquery JS + VUE.JS
+        new Vue({ // new VUE instance
+            el: '#app',
+            data: {
+                todos: [],
+                userInput: ''
+            },
+            methods: {
+                addTodo: function() {
+                    if (this.userInput.trim() == '') {
+                        return;
+                    }
+                    var newTodo = {
+                        id: _.uniqueId(),
+                        value: this.userInput
+                    };
+                    this.todos.push(newTodo);
+                    console.log(this.todos);
+                },
+                removeTodo: function(todo) {
+                    var id = todo.id;
+                    for (var i = 0; i < this.todos.length; i++) {
+                        if (this.todos[i].id == id) {
+                            this.todos.splice(i, 1);
+                        }
+                    }
+                    console.log(this.todos);
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>
